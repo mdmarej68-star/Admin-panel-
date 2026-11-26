@@ -1,236 +1,258 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ADMIN PANEL - FREE FIRE TOP UP BD</title>
-<style>
-  :root { --bg:#090b10; --panel:#141923; --gold:#ffbd45; --line:#293140; }
-  * { box-sizing:border-box; margin:0; padding:0; font-family:system-ui, sans-serif; }
-  body { background:#090b10; color:#f7f8fb; padding-bottom:50px; }
-  header { padding:18px; text-align:center; border-bottom:1px solid var(--line); }
-  .logo { font-weight:900; font-size:24px; color:var(--gold); }
-  .wrap { max-width:850px; margin:auto; padding:16px; }
-  h2 { font-size:17px; margin:0 0 10px; }
-  .box { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px; margin-top:16px; }
-  label { display:block; font-size:13px; color:#dce2ec; margin:11px 0 5px; }
-  input { width:100%; padding:11px; border-radius:9px; border:1px solid #364052; background:#0c1119; color:#fff; font-size:14px; }
-  .btn { width:100%; border:0; border-radius:10px; padding:13px; background:linear-gradient(90deg,#ff3434,#ff6b37); color:#fff; font-size:15px; font-weight:bold; margin-top:14px; cursor:pointer; }
-  .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:14px; }
-  .stat { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:10px; text-align:center; }
-  .stat b { color:var(--gold); font-size:18px; display:block; }
-  .ocard { background:#0e131c; border:1px solid var(--line); border-radius:10px; padding:12px; margin-bottom:9px; font-size:13px; line-height:1.6; }
-  .pkg-row { display:flex; justify-content:space-between; align-items:center; gap:8px; background:#0e131c; border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:8px; font-size:13px; }
-  .sbtn { padding:6px 10px; border-radius:6px; border:0; font-size:12px; font-weight:bold; cursor:pointer; margin-right:6px; margin-top:6px; }
-  #lockScreen { max-width:360px; margin:60px auto; }
-  #dashboard { display:none; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel - FREE FIRE TOP UP BD</title>
+  <style>
+    :root {
+      --bg: #090b10;
+      --panel: #141923;
+      --border: #263043;
+      --text: #f7f8fa;
+      --muted: #9aa4b8;
+      --accent: #f59e0b;
+      --ok: #22c55e;
+      --danger: #ef4444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 20px;
+      line-height: 1.5;
+    }
+    .wrap { max-width: 920px; margin: 0 auto; }
+    h1 { font-size: 22px; margin-bottom: 16px; color: var(--accent); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 20px; }
+    .box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    h2 { font-size: 16px; margin-bottom: 10px; }
+    label { display: block; font-size: 13px; color: var(--muted); margin-top: 8px; margin-bottom: 4px; }
+    input, select {
+      width: 100%;
+      padding: 9px 10px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      background: #0d1118;
+      color: var(--text);
+      font-size: 14px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 9px 14px;
+      border: none;
+      border-radius: 7px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #fff;
+      background: var(--accent);
+      color: #090b10;
+    }
+    .btn-sm { padding: 5px 10px; margin-top: 0; font-size: 12px; }
+    .btn-ok { background: var(--ok); color: #06210f; }
+    .btn-del { background: var(--danger); color: #fff; }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .row:last-child { border-bottom: none; }
+    .badge {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #1e293b;
+      color: #e2e8f0;
+    }
+    .actions { display: flex; gap: 6px; flex-wrap: wrap; }
+  </style>
 </head>
 <body>
+  <div class="wrap">
+    <h1>FREE FIRE TOP UP BD — Admin Panel</h1>
 
-<header>
-  <div class="logo">⚙️ FREE FIRE TOP UP BD • ADMIN</div>
-</header>
+    <div class="grid">
+      <div class="box">
+        <h2>নতুন প্যাকেজ যুক্ত করুন</h2>
+        <label for="pkgName">প্যাকেজের নাম</label>
+        <input id="pkgName" type="text" placeholder="যেমন: 115 Diamonds" />
+        <label for="pkgPrice">মূল্য (টাকা)</label>
+        <input id="pkgPrice" type="number" placeholder="যেমন: 85" />
+        <button id="addPkgBtn" type="button">প্যাকেজ যোগ করুন</button>
+      </div>
 
-<main class="wrap">
-  <div class="box" id="lockScreen">
-    <h2>Admin Login</h2>
-    <label for="loginPass">পাসওয়ার্ড (ডিফল্ট: admin123)</label>
-    <input type="password" id="loginPass" placeholder="পাসওয়ার্ড লিখুন">
-    <button class="btn" id="unlockBtn" type="button">লগইন করুন</button>
-  </div>
+      <div class="box">
+        <h2>পেমেন্ট ও সিকিউরিটি সেটিংস</h2>
+        <label for="bkashNum">bKash / Nagad নম্বর</label>
+        <input id="bkashNum" type="text" placeholder="01XXXXXXXXX" />
+        <label for="adminPass">অ্যাডমিন পিন / পাসওয়ার্ড</label>
+        <input id="adminPass" type="password" placeholder="নতুন পাসওয়ার্ড" />
+        <button id="saveCfgBtn" type="button">সেটিংস সেভ করুন</button>
+      </div>
+    </div>
 
-  <div id="dashboard">
-    <div class="stats">
-      <div class="stat">মোট অর্ডার<b id="stTotal">0</b></div>
-      <div class="stat">পেন্ডিং<b id="stPending">0</b></div>
-      <div class="stat">আয়<b id="stRev">৳0</b></div>
+    <div class="box" style="margin-bottom: 20px;">
+      <h2>প্যাকেজ তালিকা</h2>
+      <div id="pkgList"></div>
     </div>
 
     <div class="box">
-      <h2>📋 গ্রাহকদের অর্ডারসমূহ</h2>
+      <h2>অর্ডার তালিকা</h2>
       <div id="orderList"></div>
     </div>
-
-    <div class="box">
-      <h2>💰 বর্তমান প্যাকেজ তালিকা (দাম বাড়ান বা কমান)</h2>
-      <div id="adminPkgList"></div>
-    </div>
-
-    <div class="box">
-      <h2>➕ নতুন প্যাকেজ যোগ করুন</h2>
-      <input id="newPkgName" placeholder="প্যাকেজের নাম (যেমন: 115 Diamond)" style="margin-bottom:8px;">
-      <input id="newPkgPrice" type="number" placeholder="দাম (৳)">
-      <button class="btn" id="addPkgBtn" type="button">প্যাকেজ যোগ করুন</button>
-    </div>
-
-    <div class="box">
-      <h2>⚙️ bKash নম্বর ও পাসওয়ার্ড</h2>
-      <label for="setPayNum">bKash নম্বর</label>
-      <input id="setPayNum">
-      <label for="setPass">নতুন Admin পাসওয়ার্ড</label>
-      <input id="setPass" type="password" placeholder="বদলাতে চাইলে লিখুন">
-      <button class="btn" id="saveCfgBtn" type="button">সেটিংস সেভ করুন</button>
-    </div>
   </div>
-</main>
 
-<script>
-  /** @typedef {{ n: string, p: number }} PkgItem */
-  /** @typedef {{ uid: string, pkg: string, p: number, pay: string, snd: string, trx: string, st: string }} OrderItem */
+  <script>
+    const PKG_KEY = 'ff_pkgs';
+    const ORD_KEY = 'ff_ords';
+    const CFG_KEY = 'ff_cfg';
 
-  const K = { pkg: 'ff_pkgs', ord: 'ff_ords', cfg: 'ff_cfg' };
+    let pkgs = JSON.parse(localStorage.getItem(PKG_KEY) || '[]');
+    let ords = JSON.parse(localStorage.getItem(ORD_KEY) || '[]');
+    let cfg = JSON.parse(localStorage.getItem(CFG_KEY) || '{"bkash":"","pass":""}');
 
-  /** @type {PkgItem[]} */
-  let pkgs = JSON.parse(localStorage.getItem(K.pkg) || '[{"n":"25 Diamond","p":20},{"n":"50 Diamond","p":35},{"n":"115 Diamond","p":78},{"n":"240 Diamond","p":156},{"n":"Weekly Lite","p":40},{"n":"1X Weekly","p":155},{"n":"Monthly","p":770}]');
+    if (!pkgs.length) {
+      pkgs = [
+        { name: '25 Diamonds', price: 25 },
+        { name: '115 Diamonds', price: 85 },
+        { name: 'Weekly Membership', price: 155 }
+      ];
+    }
 
-  /** @type {OrderItem[]} */
-  let ords = JSON.parse(localStorage.getItem(K.ord) || '[]');
+    function saveAll() {
+      localStorage.setItem(PKG_KEY, JSON.stringify(pkgs));
+      localStorage.setItem(ORD_KEY, JSON.stringify(ords));
+      localStorage.setItem(CFG_KEY, JSON.stringify(cfg));
+    }
 
-  let cfg = JSON.parse(localStorage.getItem(K.cfg) || '{"num":"01700-000000","pass":"admin123"}');
+    function renderPkgs() {
+      const box = document.getElementById('pkgList');
+      if (!pkgs.length) {
+        box.innerHTML = '<div class="row">কোনো প্যাকেজ নেই।</div>';
+        return;
+      }
+      box.innerHTML = '';
+      pkgs.forEach((item, idx) => {
+        const row = document.createElement('div');
+        row.className = 'row';
 
-  /** @param {string} id */
-  const el = (id) => document.getElementById(id);
+        const info = document.createElement('div');
+        info.textContent = `${item.name} — ৳${item.price}`;
 
-  function syncFromStorage() {
-    pkgs = JSON.parse(localStorage.getItem(K.pkg) || JSON.stringify(pkgs));
-    ords = JSON.parse(localStorage.getItem(K.ord) || JSON.stringify(ords));
-    cfg = JSON.parse(localStorage.getItem(K.cfg) || JSON.stringify(cfg));
-  }
+        const actions = document.createElement('div');
+        actions.className = 'actions';
 
-  function saveAll() {
-    localStorage.setItem(K.pkg, JSON.stringify(pkgs));
-    localStorage.setItem(K.ord, JSON.stringify(ords));
-    localStorage.setItem(K.cfg, JSON.stringify(cfg));
-  }
+        const editBtn = document.createElement('button');
+        editBtn.className = 'btn-sm';
+        editBtn.type = 'button';
+        editBtn.textContent = 'দাম বদলান';
+        editBtn.onclick = () => {
+          const next = prompt(`${item.name} এর নতুন দাম লিখুন:`, item.price);
+          const num = Number(next);
+          if (next !== null && !Number.isNaN(num) && num > 0) {
+            pkgs[idx].price = num;
+            saveAll();
+            renderPkgs();
+          }
+        };
 
-  function renderAdminPkgs() {
-    const box = el('adminPkgList');
-    box.innerHTML = pkgs.length ? '' : '<p style="color:#aaa;font-size:13px;">কোনো প্যাকেজ নেই।</p>';
-    pkgs.forEach((/** @type {PkgItem} */ item, /** @type {number} */ idx) => {
-      const row = document.createElement('div');
-      row.className = 'pkg-row';
-      row.innerHTML = '<div><b>' + item.n + '</b> — <span style="color:#ffbd45;font-weight:bold;">৳' + item.p + '</span></div>';
-
-      const btns = document.createElement('div');
-      const editBtn = document.createElement('button');
-      editBtn.className = 'sbtn';
-      editBtn.type = 'button';
-      editBtn.style.background = '#3b82f6';
-      editBtn.style.color = '#fff';
-      editBtn.style.marginTop = '0';
-      editBtn.textContent = 'দাম বদলান';
-      editBtn.onclick = () => {
-        const nextPrice = prompt(item.n + '-এর নতুন দাম লিখুন (৳):', String(item.p));
-        if (nextPrice !== null && Number(nextPrice) > 0) {
-          pkgs[idx].p = Number(nextPrice);
+        const delBtn = document.createElement('button');
+        delBtn.className = 'btn-sm btn-del';
+        delBtn.type = 'button';
+        delBtn.textContent = 'মুছুন';
+        delBtn.onclick = () => {
+          pkgs.splice(idx, 1);
           saveAll();
-          renderAdminPkgs();
-        }
-      };
+          renderPkgs();
+        };
 
-      const delBtn = document.createElement('button');
-      delBtn.className = 'sbtn';
-      delBtn.type = 'button';
-      delBtn.style.background = '#ef4444';
-      delBtn.style.color = '#fff';
-      delBtn.style.marginTop = '0';
-      delBtn.style.marginRight = '0';
-      delBtn.textContent = 'মুছুন';
-      delBtn.onclick = () => {
-        pkgs.splice(idx, 1);
-        saveAll();
-        renderAdminPkgs();
-      };
-
-      btns.appendChild(editBtn);
-      btns.appendChild(delBtn);
-      row.appendChild(btns);
-      box.appendChild(row);
-    });
-  }
-
-  function renderAdmin() {
-    syncFromStorage();
-    /** @type {HTMLInputElement} */ (el('setPayNum')).value = cfg.num;
-    el('stTotal').textContent = String(ords.length);
-    el('stPending').textContent = String(ords.filter((/** @type {OrderItem} */ o) => o.st === 'Pending').length);
-    const rev = ords
-      .filter((/** @type {OrderItem} */ o) => o.st === 'Completed')
-      .reduce((/** @type {number} */ s, /** @type {OrderItem} */ o) => s + o.p, 0);
-    el('stRev').textContent = '৳' + rev;
-
-    renderAdminPkgs();
-
-    const list = el('orderList');
-    list.innerHTML = ords.length ? '' : '<p style="color:#aaa;font-size:13px;">এখনো কোনো অর্ডার নেই।</p>';
-    ords.forEach((/** @type {OrderItem} */ o, /** @type {number} */ i) => {
-      const d = document.createElement('div');
-      d.className = 'ocard';
-      d.innerHTML = '<b>' + o.pkg + ' (৳' + o.p + ')</b> — <span style="color:#ffbd45">' + o.st + '</span><br>UID: ' + o.uid + ' | bKash: ' + o.snd + ' | TrxID: <b>' + o.trx + '</b><br>';
-      const ok = document.createElement('button');
-      ok.className = 'sbtn';
-      ok.type = 'button';
-      ok.style.background = '#10b981';
-      ok.textContent = '✓ Complete';
-      ok.onclick = () => { ords[i].st = 'Completed'; saveAll(); renderAdmin(); };
-      const del = document.createElement('button');
-      del.className = 'sbtn';
-      del.type = 'button';
-      del.style.background = '#ef4444';
-      del.style.color = '#fff';
-      del.textContent = '✕ Delete';
-      del.onclick = () => { ords.splice(i, 1); saveAll(); renderAdmin(); };
-      d.appendChild(ok);
-      d.appendChild(del);
-      list.appendChild(d);
-    });
-  }
-
-  el('unlockBtn').onclick = () => {
-    syncFromStorage();
-    const p = /** @type {HTMLInputElement} */ (el('loginPass')).value;
-    if (p !== cfg.pass) {
-      alert('ভুল পাসওয়ার্ড!');
-      return;
+        actions.appendChild(editBtn);
+        actions.appendChild(delBtn);
+        row.appendChild(info);
+        row.appendChild(actions);
+        box.appendChild(row);
+      });
     }
-    el('lockScreen').style.display = 'none';
-    el('dashboard').style.display = 'block';
-    renderAdmin();
-  };
 
-  el('addPkgBtn').onclick = () => {
-    const nameInput = /** @type {HTMLInputElement} */ (el('newPkgName'));
-    const priceInput = /** @type {HTMLInputElement} */ (el('newPkgPrice'));
-    const n = nameInput.value.trim();
-    const p = Number(priceInput.value);
-    if (!n || p <= 0) {
-      alert('সঠিক নাম ও দাম দিন');
-      return;
+    function renderOrders() {
+      const box = document.getElementById('orderList');
+      if (!ords.length) {
+        box.innerHTML = '<div class="row">এখনও কোনো অর্ডার আসেনি।</div>';
+        return;
+      }
+      box.innerHTML = '';
+      ords.forEach((ord, idx) => {
+        const row = document.createElement('div');
+        row.className = 'row';
+
+        const info = document.createElement('div');
+        info.textContent = `UID: ${ord.uid || '-'} | ${ord.pkg || '-'} | TrxID: ${ord.trx || '-'}`;
+
+        const right = document.createElement('div');
+        right.className = 'actions';
+
+        const badge = document.createElement('span');
+        badge.className = 'badge';
+        badge.textContent = ord.status || 'Pending';
+
+        const doneBtn = document.createElement('button');
+        doneBtn.className = 'btn-sm btn-ok';
+        doneBtn.type = 'button';
+        doneBtn.textContent = 'Completed';
+        doneBtn.onclick = () => {
+          ords[idx].status = 'Completed';
+          saveAll();
+          renderOrders();
+        };
+
+        right.appendChild(badge);
+        right.appendChild(doneBtn);
+        row.appendChild(info);
+        row.appendChild(right);
+        box.appendChild(row);
+      });
     }
-    pkgs.push({ n, p });
+
+    document.getElementById('addPkgBtn').onclick = () => {
+      const nameEl = document.getElementById('pkgName');
+      const priceEl = document.getElementById('pkgPrice');
+      const name = nameEl.value.trim();
+      const price = Number(priceEl.value);
+      if (!name || Number.isNaN(price) || price <= 0) {
+        alert('সঠিক প্যাকেজের নাম ও মূল্য দিন।');
+        return;
+      }
+      pkgs.push({ name, price });
+      saveAll();
+      renderPkgs();
+      nameEl.value = '';
+      priceEl.value = '';
+    };
+
+    document.getElementById('saveCfgBtn').onclick = () => {
+      const bkashEl = document.getElementById('bkashNum');
+      const passEl = document.getElementById('adminPass');
+      if (bkashEl.value.trim()) cfg.bkash = bkashEl.value.trim();
+      if (passEl.value.trim()) cfg.pass = passEl.value.trim();
+      saveAll();
+      passEl.value = '';
+      alert('সেটিংস সেভ হয়েছে।');
+    };
+
+    document.getElementById('bkashNum').value = cfg.bkash || '';
     saveAll();
-    nameInput.value = '';
-    priceInput.value = '';
-    renderAdminPkgs();
-    alert('নতুন প্যাকেজ যুক্ত হয়েছে!');
-  };
-
-  el('saveCfgBtn').onclick = () => {
-    const numInput = /** @type {HTMLInputElement} */ (el('setPayNum'));
-    const passInput = /** @type {HTMLInputElement} */ (el('setPass'));
-    const num = numInput.value.trim();
-    const pass = passInput.value.trim();
-    if (num) cfg.num = num;
-    if (pass) {
-      cfg.pass = pass;
-      passInput.value = '';
-    }
-    saveAll();
-    alert('সেটিংস সেভ হয়েছে!');
-  };
-
-  window.addEventListener('storage', renderAdmin);
-</script>
+    renderPkgs();
+    renderOrders();
+  </script>
 </body>
 </html>
